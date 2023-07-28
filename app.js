@@ -13,6 +13,8 @@ var instructorRouter = require('./routes/instructor');
 var studentRouter = require('./routes/student');
 var teacherRouter = require('./routes/teacher');
 
+var WsServer = require('./controller/WsServer')
+
 
 var app = express();
 
@@ -44,6 +46,8 @@ app.use('/dormitoryadmin', dormitoryadminRouter);
 app.use('/instructor', instructorRouter);
 app.use('/student', studentRouter);
 app.use('/teacher', teacherRouter);
+
+WsServer();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

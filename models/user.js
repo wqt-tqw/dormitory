@@ -150,7 +150,49 @@ const changePasswordModel=(req,res)=>{
 	
 }
 
+//查询聊天室记录
+const getChatLogModel=(req,res)=>{
+	//1.接受数据
+	let getData=req.query;
+	console.log('接受数据req:'+getData)
+	console.log('接受数据res:'+res)
+	
+	var sql = `select * from chatlog ORDER BY chat_log_id DESC`;
+	// if(getData.pageNo&&getData.pageSize){
+	// 	sql = `select * from chatlog limit ${getData.pageNo-1},${getData.pageSize}`;
+	// }
+	if(getData.chat_log_id){
+		sql = `select * from chatlog where chat_log_id = ${getData.chat_log_id}`;
+	}
+	//var sqlParams = 
+	console.log('sql:'+sql)
+	db.query(sql,function (error, results) {
+		if(error){
+			console.log('查询失败'+error)
+			res.send({
+				meta:{
+					flag:false,
+					msg:error
+				}
+			})
+		}else{
+			console.log(results)
+			res.send({
+				meta:{
+					state:200,
+					flag:true,
+					msg:"查询成功"
+				},
+				data:results
+			})
+		}
+		//db.end();
+	});
+	
+}
+
 module.exports={
 	registerModel,
-	changePasswordModel
+	changePasswordModel,
+	getChatLogModel
 }

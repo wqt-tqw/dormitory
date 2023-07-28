@@ -3,7 +3,8 @@ var router = express.Router();
 
 const {
 	registerModel,
-	changePasswordModel
+	changePasswordModel,
+	getChatLogModel
 }=require(process.cwd()+'/models/user')
 
 /* GET users listing. */
@@ -14,6 +15,9 @@ router.get('/', function(req, res, next) {
 router.get('/register', registerModel);
 //更新密码
 router.post('/changePassword', changePasswordModel);
+
+//查询聊天室记录
+router.get('/getChatLog', getChatLogModel);
 
 
 
